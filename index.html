@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>12° Semana de Presupuesto y Derechos</title>
+<meta name="description" content="12° Semana de Presupuesto y Derechos de ACIJ: programa de actividades, informes y herramientas para debatir el Proyecto de Ley de Presupuesto 2027.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap">
+<style>
+/* Layout: banda coral con la "hoja de papel" del banner → secciones sobre papel claro,
+   cada una abierta por un rótulo tipo encabezado de informe (PRESUPUESTO | 2027). */
+:root{
+  --tinta:#271217;     /* casi negro de la plantilla */
+  --bordo:#5f3239;
+  --coral:#dd725e;
+  --coral-txt:#b54b37; /* coral oscurecido para texto chico (contraste AA) */
+  --papel:#dcd9d4;
+  --papel-claro:#efede9;
+  --hoja:#f8f6f2;
+  --oliva:#b8ac84;
+  --oliva-txt:#7a6f45;
+  --menta:#bee0cf;
+  --menta-osc:#2f6b55;
+  --gris:#5d5356;
+  --linea:#cfc9c1;
+
+  --f-display:"Manrope", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --f-texto:"Manrope", "Segoe UI", system-ui, -apple-system, sans-serif;
+
+  --ancho:1180px;
+  --radio:2px;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}}
+body{margin:0;background:var(--papel-claro);color:var(--tinta);font-family:var(--f-texto);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
+img{max-width:100%;display:block}
+a{color:var(--bordo)}
+a:focus-visible,button:focus-visible{outline:3px solid var(--coral);outline-offset:3px}
+h1,h2,h3{font-family:var(--f-display);text-wrap:balance;margin:0;line-height:1.15}
+.envoltura{max-width:var(--ancho);margin:0 auto;padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px))}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* ---------- Barra superior ---------- */
+.barra{background:var(--papel) url("assets/papel-textura.jpg") center/cover no-repeat;border-bottom:1px solid var(--linea)}
+.barra .envoltura{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:14px;flex-wrap:wrap}
+.rotulo{font-size:18px;letter-spacing:.02em;color:var(--coral-txt);font-weight:300;text-decoration:none;white-space:nowrap}
+.rotulo b{font-weight:800}
+.rotulo span{margin:0 .35em;font-weight:300}
+.nav{display:flex;gap:4px 22px;flex-wrap:wrap}
+.nav a{font-size:14px;font-weight:600;text-decoration:none;color:var(--tinta);text-transform:uppercase;letter-spacing:.08em;padding:6px 0;border-bottom:2px solid transparent}
+.nav a:hover{border-color:var(--coral)}
+.logo{display:inline-flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:var(--tinta)}
+.logo .letras{display:flex;gap:3px}
+.logo .letras i{width:26px;height:26px;border-radius:50%;background:#3c3a3b;color:#f3f1ee;font-style:normal;font-size:14px;font-weight:500;display:grid;place-items:center}
+.logo small{font-size:9.5px;font-weight:600;letter-spacing:.01em}
+
+/* ---------- Hero ---------- */
+.hero{position:relative;background:var(--coral);overflow:hidden;isolation:isolate}
+.hero::before{content:"";position:absolute;inset:0;background:url("assets/papel-textura.jpg") center/cover no-repeat;mix-blend-mode:soft-light;opacity:.55;z-index:-1}
+.hero .envoltura{position:relative;padding-block:clamp(48px,7vw,88px) clamp(56px,7vw,96px)}
+.hoja{position:relative;max-width:900px;margin:0 auto}
+.hoja::before{content:"";position:absolute;inset:6% -1.5% -5% -1.5%;background:var(--bordo);transform:rotate(-1.4deg);z-index:0}
+.hoja-papel{position:relative;z-index:1;background:#c9c3bb url("assets/papel-textura.jpg") center/cover no-repeat;border:6px solid #f7f1ea;padding:clamp(28px,5vw,64px) clamp(22px,6vw,84px)}
+.hoja-papel .raya{height:2px;background:var(--coral);opacity:.9}
+.hoja h1{font-size:clamp(34px,6vw,68px);font-weight:800;letter-spacing:-.01em;color:#2a1519;margin:clamp(22px,3.5vw,40px) 0}
+.hoja h1 .num{color:var(--coral)}
+.hero-pie{position:relative;z-index:2;max-width:900px;margin:clamp(36px,5vw,56px) auto 0;display:flex;flex-wrap:wrap;gap:12px 28px;align-items:center;justify-content:space-between;color:#2a1519}
+.hero-pie p{margin:0;font-size:clamp(17px,1.9vw,20px);font-weight:500;max-width:56ch}
+.hero-pie p b{font-weight:800}
+.boton{display:inline-flex;align-items:center;gap:10px;padding:13px 22px;background:var(--tinta);color:#fff;text-decoration:none;font-weight:700;font-size:15px;border:0;border-radius:var(--radio);cursor:pointer;font-family:inherit;transition:background .15s}
+.boton:hover{background:var(--bordo)}
+.boton.sec{background:transparent;color:var(--tinta);box-shadow:inset 0 0 0 2px var(--tinta)}
+.boton.sec:hover{background:var(--tinta);color:#fff}
+.flecha{display:inline-grid;place-items:center;width:22px;height:22px;background:var(--coral);color:#fff;font-size:14px}
+.deco{position:absolute;pointer-events:none;z-index:0}
+.deco-trama{right:-40px;top:-30px;width:clamp(180px,22vw,300px);opacity:.55;filter:brightness(1.9) saturate(.4)}
+.deco-grilla{right:-30px;bottom:-40px;width:clamp(130px,14vw,200px)}
+.deco-marco{left:clamp(-30px,1vw,20px);top:44%;width:70px}
+.deco-serie{left:0;bottom:4%;width:60%;opacity:.9}
+@media (max-width:700px){.deco-marco{display:none}.deco-serie{width:120%}.deco-trama{width:150px}}
+
+/* ---------- Secciones ---------- */
+section{scroll-margin-top:16px}
+.seccion{padding-block:clamp(56px,8vw,96px)}
+.encabezado{display:flex;align-items:flex-end;justify-content:space-between;gap:16px 32px;flex-wrap:wrap;margin-bottom:clamp(28px,4vw,44px)}
+.eyebrow{display:flex;align-items:center;gap:10px;font-size:13px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--coral-txt);margin-bottom:12px}
+.eyebrow::before{content:"";width:28px;height:2px;background:var(--coral)}
+.encabezado h2{font-size:clamp(30px,4.2vw,46px);font-weight:800;color:var(--bordo)}
+.encabezado p{margin:0;max-width:52ch;color:var(--gris)}
+
+/* Sobre */
+.sobre{background:var(--hoja);border-bottom:1px solid var(--linea)}
+.sobre-grid{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:clamp(32px,6vw,80px);align-items:start}
+.sobre-lead{font-size:clamp(20px,2.3vw,26px);line-height:1.45;font-weight:500;color:var(--tinta);margin:0 0 20px}
+.sobre-lead b{color:var(--bordo);font-weight:800}
+.sobre p{max-width:62ch}
+.ediciones{background:var(--papel-claro);border:1px solid var(--linea);padding:28px}
+.ediciones h3{font-size:15px;letter-spacing:.12em;text-transform:uppercase;font-weight:700;color:var(--gris);margin-bottom:18px}
+.puntos{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;max-width:300px}
+.puntos i{aspect-ratio:1;border-radius:50%;border:3px solid var(--oliva);max-width:100%}
+.puntos i.lleno{background:var(--oliva)}
+.puntos i.hoy{background:var(--coral);border-color:var(--coral);box-shadow:0 0 0 4px var(--menta)}
+.ediciones .cifra{display:flex;align-items:baseline;gap:12px;margin-top:22px}
+.ediciones .cifra strong{font-size:56px;font-weight:800;color:var(--coral);line-height:1}
+.ediciones .cifra span{font-weight:600;color:var(--bordo);line-height:1.3}
+
+/* ---------- Programa ---------- */
+.programa{background:var(--papel-claro)}
+.proxima{display:flex;gap:14px;align-items:center;flex-wrap:wrap;background:var(--tinta);color:#f4efe9;padding:14px 20px;margin-bottom:24px;font-size:15px}
+.proxima .etq{font-size:12px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--menta)}
+.proxima a{color:#fff;font-weight:700}
+.dias-wrap{overflow-x:auto;margin-bottom:28px;scrollbar-width:thin}
+.dias{display:flex;gap:0;border-bottom:2px solid var(--tinta);min-width:max-content}
+.dia{appearance:none;background:transparent;border:0;font-family:inherit;cursor:pointer;padding:12px 22px 14px;text-align:left;color:var(--gris);position:relative;min-width:108px}
+.dia .dsem{display:block;font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase}
+.dia .dnum{display:block;font-size:30px;font-weight:800;line-height:1.1;color:var(--tinta);font-variant-numeric:tabular-nums}
+.dia .dmes{font-size:13px;font-weight:500}
+.dia .hoy-tag{position:absolute;top:10px;right:10px;width:9px;height:9px;border-radius:50%;background:var(--coral)}
+.dia:hover{background:var(--hoja)}
+.dia[aria-selected="true"]{background:var(--tinta);color:var(--menta)}
+.dia[aria-selected="true"] .dnum{color:#fff}
+.dia.todo .dnum{font-size:18px;padding-top:8px}
+.lista{display:flex;flex-direction:column;gap:18px}
+.dia-titulo{font-size:15px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--bordo);padding-top:18px;display:flex;align-items:center;gap:12px}
+.dia-titulo::after{content:"";flex:1;height:1px;background:var(--linea)}
+.dia-titulo:first-child{padding-top:0}
+
+.act{display:grid;grid-template-columns:150px minmax(0,1fr);background:var(--hoja);border:1px solid var(--linea);position:relative}
+.act-hora{padding:22px 20px;border-right:1px dashed var(--linea);display:flex;flex-direction:column;gap:10px}
+.act-hora .h{font-size:26px;font-weight:800;line-height:1;font-variant-numeric:tabular-nums}
+.act-hora .h .a-conf{font-size:20px}
+.act-hora .h small{display:block;font-size:14px;font-weight:500;color:var(--gris);margin-top:6px}
+.estado{display:inline-flex;align-items:center;gap:7px;font-size:12px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;padding:5px 9px;width:max-content}
+.estado::before{content:"";width:8px;height:8px;border-radius:50%;background:currentColor}
+.estado.proxima-e{background:var(--menta);color:var(--menta-osc)}
+.estado.vivo{background:var(--coral);color:#fff}
+.estado.vivo::before{animation:latido 1.4s infinite}
+@keyframes latido{50%{opacity:.25}}
+.estado.fin{background:var(--papel);color:var(--gris)}
+.act-cuerpo{padding:22px 26px 24px;min-width:0}
+.act-meta{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--oliva-txt);margin-bottom:8px}
+.act-meta .tipo{color:var(--coral-txt)}
+.act h3{font-size:clamp(20px,2.2vw,24px);font-weight:800;color:var(--tinta);margin-bottom:8px}
+.act p{margin:0 0 12px;color:#3d3236;max-width:70ch}
+.panel{font-size:15px;color:var(--gris);margin-bottom:14px}
+.panel b{color:var(--tinta);font-weight:700}
+.acciones{display:flex;flex-wrap:wrap;gap:10px;margin-top:6px}
+.acciones .boton{padding:10px 16px;font-size:14px}
+.ejemplo{position:absolute;top:0;right:0;background:repeating-linear-gradient(-45deg,#f3d9a4,#f3d9a4 6px,#f7e6c2 6px,#f7e6c2 12px);color:#5a4210;font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;padding:4px 10px}
+.act.fin{background:var(--papel-claro)}
+.act.fin .act-hora .h{color:var(--gris)}
+.act.vivo-c{border-color:var(--coral);box-shadow:0 0 0 2px var(--coral)}
+
+.agenda{margin:4px 0 16px;border:1px solid var(--linea);background:#fff}
+.agenda summary{cursor:pointer;padding:10px 14px;font-size:14px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--bordo);list-style:none;display:flex;align-items:center;gap:10px}
+.agenda summary::-webkit-details-marker{display:none}
+.agenda summary::before{content:"+";display:inline-grid;place-items:center;width:20px;height:20px;background:var(--coral);color:#fff;font-size:15px;line-height:1}
+.agenda[open] summary::before{content:"−"}
+.agenda ol{list-style:none;margin:0;padding:0;border-top:1px solid var(--linea)}
+.agenda li{display:grid;grid-template-columns:118px minmax(0,1fr);gap:14px;padding:12px 14px;border-bottom:1px solid var(--papel)}
+.agenda li:last-child{border-bottom:0}
+.agenda li:nth-child(even){background:var(--hoja)}
+.ag-hora{font-size:14px;font-weight:700;color:var(--gris);font-variant-numeric:tabular-nums}
+.ag-txt{display:flex;flex-direction:column;gap:3px;font-size:15px;line-height:1.45}
+.ag-txt b{color:var(--tinta)}
+.ag-det{color:#3d3236}
+.ag-per{color:var(--gris)}
+.ag-mod{color:var(--coral-txt);font-size:14px}
+@media (max-width:640px){.agenda li{grid-template-columns:minmax(0,1fr);gap:4px}}
+.materiales{margin-top:14px;border-top:1px solid var(--linea);padding-top:14px}
+.materiales h4{margin:0 0 10px;font-size:13px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--bordo)}
+.mats{display:flex;flex-wrap:wrap;gap:10px;list-style:none;margin:0;padding:0}
+.mat{display:flex;align-items:center;gap:10px;padding:9px 14px 9px 9px;background:#fff;border:1px solid var(--linea);text-decoration:none;color:var(--tinta);font-weight:600;font-size:14.5px;transition:border-color .15s,transform .15s}
+.mat:hover{border-color:var(--tinta);transform:translateY(-1px)}
+.mat .ic{width:30px;height:30px;display:grid;place-items:center;flex:none}
+.mat .ic svg{width:16px;height:16px}
+.ic.video{background:var(--coral);color:#fff}
+.ic.documento{background:var(--bordo);color:#fff}
+.ic.presentacion{background:var(--oliva);color:var(--tinta)}
+.ic.nota,.ic.enlace{background:var(--menta);color:var(--tinta)}
+.ic.fotos{background:var(--tinta);color:#fff}
+.pendiente{font-size:14.5px;color:var(--gris);font-style:italic;margin:0}
+.vacio{padding:40px;text-align:center;color:var(--gris);border:1px dashed var(--linea)}
+
+/* ---------- Informes ---------- */
+.informes{background:var(--hoja);border-top:1px solid var(--linea)}
+.docs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(20px,3vw,36px)}
+.doc{display:flex;flex-direction:column;gap:16px;min-width:0}
+.portada{position:relative;aspect-ratio:560/792;max-width:100%;background:var(--menta);overflow:hidden;box-shadow:10px 10px 0 var(--papel);transition:transform .2s, box-shadow .2s}
+.doc a.portada-link:hover .portada{transform:translate(-3px,-3px);box-shadow:14px 14px 0 var(--coral)}
+.portada img{width:100%;height:100%;object-fit:cover}
+.portada.css{background:var(--coral);padding:14% 12%;display:flex;flex-direction:column;justify-content:center;gap:18px;isolation:isolate}
+.portada.css::before{content:"";position:absolute;inset:0;background:url("assets/papel-textura.jpg") center/cover no-repeat;mix-blend-mode:soft-light;opacity:.5;z-index:-1}
+.portada.css .pt{font-size:clamp(20px,2.3vw,28px);font-weight:800;line-height:1.15;color:var(--tinta)}
+.portada.css .pt b{color:var(--bordo)}
+.portada.css .fila{display:flex;gap:5px}
+.portada.css .fila i{width:14px;height:14px;border-radius:50%;border:2px solid var(--tinta);opacity:.6}
+.portada.css .fila i.f{background:var(--menta);border-color:var(--menta);opacity:1}
+.portada.css .trama{position:absolute;right:-22%;bottom:-14%;width:58%;height:auto;object-fit:contain;opacity:.85;z-index:-1}
+.portada.css .mini-logo{position:absolute;left:12%;bottom:7%}
+.portada .sello{position:absolute;left:0;top:18px;background:var(--tinta);color:var(--menta);font-size:12px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;padding:6px 12px}
+.doc .tipo-doc{font-size:12.5px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--coral-txt)}
+.doc h3{font-size:21px;font-weight:800;color:var(--tinta);margin-top:4px}
+.doc p{margin:0;color:var(--gris);font-size:15.5px}
+.doc .acciones{margin-top:auto}
+.portada-link{text-decoration:none;display:block}
+.doc.pronto .portada{filter:saturate(.7)}
+
+/* ---------- Herramienta ---------- */
+.herramienta{background:var(--menta);position:relative;overflow:hidden;isolation:isolate}
+.herramienta::before{content:"";position:absolute;inset:0;background:url("assets/papel-textura.jpg") center/cover no-repeat;mix-blend-mode:multiply;opacity:.18;z-index:-1}
+.herr-grid{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:clamp(28px,5vw,64px);align-items:center}
+.herramienta .encabezado{margin-bottom:20px}
+.herramienta .eyebrow{color:var(--menta-osc)}
+.herramienta .eyebrow::before{background:var(--menta-osc)}
+.herramienta p{max-width:58ch}
+.nota-met{max-width:66ch;margin-top:22px;border-left:3px solid var(--bordo);padding:4px 0 4px 16px;font-size:15px;color:#33403a}
+.nota-met b{display:block;font-size:12.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--bordo);margin-bottom:2px}
+.grafico{background:var(--hoja);border:6px solid #fbf9f6;box-shadow:-14px 14px 0 var(--bordo);padding:24px 22px 18px;position:relative}
+.grafico h3{font-size:16px;font-weight:800;color:var(--tinta)}
+.grafico .sub{font-size:13px;color:var(--gris);margin:2px 0 14px}
+.grafico svg{width:100%;height:auto;display:block}
+.grafico .fuente{font-size:12px;color:var(--gris);margin-top:8px}
+#embed-herramienta:empty{display:none}
+#embed-herramienta{margin-top:36px;background:#fff;border:6px solid #fbf9f6;box-shadow:-14px 14px 0 var(--bordo)}
+#embed-herramienta .embed-barra{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding:10px 16px;background:var(--tinta);color:#f4efe9;font-size:13px;font-weight:700;letter-spacing:.1em;text-transform:uppercase}
+#embed-herramienta .embed-barra a{color:var(--menta);text-transform:none;letter-spacing:0;font-size:14px}
+#embed-herramienta iframe{display:block;width:100%;height:min(85vh,900px);min-height:560px;border:0}
+.herramienta.con-embed .herr-grid{grid-template-columns:minmax(0,1fr)}
+.herramienta.con-embed .grafico{display:none}
+
+/* ---------- Pie ---------- */
+.pie{background:var(--tinta);color:#e9e2dc;font-size:15px}
+.pie .envoltura{padding-block:56px 40px}
+.pie-grid{display:grid;grid-template-columns:minmax(0,1.3fr) repeat(2,minmax(0,1fr));gap:36px}
+.pie h2{font-size:24px;font-weight:800;color:#fff;margin-bottom:12px}
+.pie h3{font-size:12.5px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--menta);margin-bottom:12px}
+.pie p{margin:0 0 10px;max-width:46ch}
+.pie a{color:#fff}
+.pie ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.pie .logo{color:#e9e2dc;align-items:flex-start}
+.pie .logo .letras i{background:#f3f1ee;color:var(--tinta)}
+.pie-fin{border-top:1px solid #4a3236;margin-top:40px;padding-top:20px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-size:13px;color:#b9aaa6}
+.franja{height:12px;display:grid;grid-template-columns:1fr 2fr 2fr 1.4fr .7fr .5fr}
+.franja i:nth-child(1){background:var(--tinta)}.franja i:nth-child(2){background:var(--bordo)}.franja i:nth-child(3){background:var(--coral)}.franja i:nth-child(4){background:var(--papel)}.franja i:nth-child(5){background:var(--oliva)}.franja i:nth-child(6){background:var(--menta)}
+
+/* ---------- Responsive ---------- */
+@media (max-width:920px){
+  .sobre-grid,.herr-grid{grid-template-columns:minmax(0,1fr)}
+  .docs{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .pie-grid{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+  .pie-grid>div:first-child{grid-column:1/-1}
+}
+@media (max-width:640px){
+  body{font-size:16px}
+  .barra .nav{order:3;width:100%;gap:4px 16px}
+  .act{grid-template-columns:minmax(0,1fr)}
+  .act-hora{flex-direction:row;align-items:center;justify-content:space-between;border-right:0;border-bottom:1px dashed var(--linea);padding:16px 18px}
+  .act-hora{justify-content:flex-start;gap:16px;padding-top:22px}
+  .act-hora .h small{display:inline;margin:0 0 0 6px}
+  .act-cuerpo{padding:18px}
+  .docs{grid-template-columns:minmax(0,1fr)}
+  .doc{display:grid;grid-template-columns:110px minmax(0,1fr);gap:4px 16px;align-items:start}
+  .doc>.portada-link,.doc>.portada{grid-row:span 4}
+  .portada{box-shadow:6px 6px 0 var(--papel)}
+  .portada.css{padding:10px}
+  .portada.css .pt{font-size:11px}
+  .portada.css .fila,.portada.css .mini-logo,.portada .sello{display:none}
+  .pie-grid{grid-template-columns:minmax(0,1fr)}
+  .ediciones{padding:20px}
+  .ejemplo{font-size:10px}
+}
+</style>
+</head>
+<body>
+
+
+<!-- ============ BARRA SUPERIOR ============ -->
+<header class="barra">
+  <div class="envoltura">
+    <a class="rotulo" href="#inicio">PRESUPUESTO<span>|</span><b>2027</b></a>
+    <nav class="nav" aria-label="Secciones">
+      <a href="#programa">Programa</a>
+      <a href="#informes">Informes</a>
+      <a href="#herramienta">¿Qué cambia?</a>
+      <a href="#sobre">La Semana</a>
+    </nav>
+    <a class="logo" href="https://acij.org.ar/" aria-label="ACIJ, Asociación Civil por la Igualdad y la Justicia">
+      <span class="letras" aria-hidden="true"><i>A</i><i>C</i><i>I</i><i>J</i></span>
+      <small>por la igualdad y la justicia</small>
+    </a>
+  </div>
+</header>
+
+<!-- ============ HERO ============ -->
+<section class="hero" id="inicio">
+  <img class="deco deco-trama" src="assets/trama-coral.png" alt="">
+  <img class="deco deco-marco" src="assets/marco.png" alt="">
+  <img class="deco deco-serie" src="assets/serie-menta.png" alt="">
+  <img class="deco deco-grilla" src="assets/grilla.png" alt="">
+  <div class="envoltura">
+    <div class="hoja">
+      <div class="hoja-papel">
+        <div class="raya"></div>
+        <h1><span class="num">12°</span> Semana de Presupuesto y&nbsp;Derechos</h1>
+        <div class="raya"></div>
+      </div>
+    </div>
+    <div class="hero-pie">
+      <p id="hero-fechas">Debatimos el <b>Proyecto de Ley de Presupuesto 2027</b>.</p>
+      <a class="boton" href="#programa">Ver el programa <span class="flecha" aria-hidden="true">↓</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PROGRAMA ============ -->
+<section class="programa seccion" id="programa" aria-labelledby="t-programa">
+  <div class="envoltura">
+    <div class="encabezado">
+      <div>
+        <div class="eyebrow">Agenda</div>
+        <h2 id="t-programa">Programa de actividades</h2>
+      </div>
+      <p>Elegí un día para ver la agenda. Después de cada encuentro sumamos acá la grabación, las presentaciones y los documentos.</p>
+    </div>
+    <div class="proxima" id="proxima" hidden></div>
+    <div class="dias-wrap">
+      <div class="dias" role="tablist" aria-label="Días del programa" id="dias"></div>
+    </div>
+    <div class="lista" id="lista" role="tabpanel" aria-live="polite"></div>
+  </div>
+</section>
+
+<!-- ============ INFORMES ============ -->
+<section class="informes seccion" id="informes" aria-labelledby="t-informes">
+  <div class="envoltura">
+    <div class="encabezado">
+      <div>
+        <div class="eyebrow">Documentos</div>
+        <h2 id="t-informes">Informes y análisis</h2>
+      </div>
+      <p>Nuestros análisis del Proyecto de Presupuesto 2027: datos clave, prioridades de gasto y su impacto en los derechos.</p>
+    </div>
+    <div class="docs" id="docs"></div>
+  </div>
+</section>
+
+<!-- ============ HERRAMIENTA ============ -->
+<section class="herramienta seccion" id="herramienta" aria-labelledby="t-herr">
+  <div class="envoltura">
+    <div class="herr-grid">
+      <div>
+        <div class="encabezado">
+          <div>
+            <div class="eyebrow">Monitor Presupuestario</div>
+            <h2 id="t-herr">Proyecto de Presupuesto 2027: ¿qué cambia?</h2>
+          </div>
+        </div>
+        <p>Con esta herramienta de nuestro Monitor Presupuestario podés revisar el Proyecto de Presupuesto 2027 partida por partida y comparar sus montos con los de años anteriores. Las variaciones se muestran en términos reales, es decir, descontando la inflación.</p>
+        <div class="acciones" id="herr-acciones"></div>
+        <div class="nota-met">
+          <b>Nota metodológica</b>
+          Para 2026 se toma el crédito vigente al 16 de septiembre. No se incluye la actualización del crédito vigente que el proyecto prevé para el resto del año, de alrededor del 4%.
+        </div>
+      </div>
+      <figure class="grafico" aria-label="Ilustración de la comparación en términos reales">
+        <h3>¿Cuánto se asigna a cada partida?</h3>
+        <div class="sub">Comparación interanual en términos reales · ilustrativo</div>
+        <svg viewBox="0 0 420 210" role="img" aria-label="Gráfico ilustrativo de barras que compara 2026 vigente con 2027 proyecto">
+          <g font-family="Manrope, sans-serif" font-size="11" fill="#5d5356">
+            <line x1="40" y1="170" x2="410" y2="170" stroke="#cfc9c1"/>
+            <line x1="40" y1="120" x2="410" y2="120" stroke="#e6e1da"/>
+            <line x1="40" y1="70" x2="410" y2="70" stroke="#e6e1da"/>
+            <line x1="40" y1="20" x2="410" y2="20" stroke="#e6e1da"/>
+            <!-- grupos -->
+            <rect x="62" y="60" width="34" height="110" fill="#b8ac84"/><rect x="100" y="78" width="34" height="92" fill="#dd725e"/>
+            <rect x="182" y="96" width="34" height="74" fill="#b8ac84"/><rect x="220" y="84" width="34" height="86" fill="#dd725e"/>
+            <rect x="302" y="40" width="34" height="130" fill="#b8ac84"/><rect x="340" y="62" width="34" height="108" fill="#dd725e"/>
+            <text x="98" y="188" text-anchor="middle">Partida A</text>
+            <text x="218" y="188" text-anchor="middle">Partida B</text>
+            <text x="338" y="188" text-anchor="middle">Partida C</text>
+            <text x="117" y="72" text-anchor="middle" font-weight="800" fill="#b54b37">−16%</text>
+            <text x="237" y="78" text-anchor="middle" font-weight="800" fill="#2f6b55">+16%</text>
+            <text x="357" y="56" text-anchor="middle" font-weight="800" fill="#b54b37">−17%</text>
+            <rect x="40" y="200" width="10" height="10" fill="#b8ac84"/><text x="55" y="209">2026 vigente</text>
+            <rect x="140" y="200" width="10" height="10" fill="#dd725e"/><text x="155" y="209">2027 proyecto</text>
+          </g>
+        </svg>
+        <figcaption class="fuente">Ejemplo de cómo leer la herramienta. Los datos reales están en el Monitor.</figcaption>
+      </figure>
+    </div>
+    <!-- Acá se inserta el Monitor 2027 (ver CONFIG.monitorURL en el script). -->
+    <div id="embed-herramienta"></div>
+  </div>
+</section>
+
+<!-- ============ SOBRE LA SEMANA ============ -->
+<section class="sobre seccion" id="sobre" aria-labelledby="t-sobre">
+  <div class="envoltura">
+    <div class="sobre-grid">
+      <div>
+        <div class="eyebrow">La Semana</div>
+        <h2 id="t-sobre" class="sr">Sobre la Semana de Presupuesto y Derechos</h2>
+        <p class="sobre-lead">Desde hace más de una década, la Asociación Civil por la Igualdad y la Justicia (ACIJ) lleva adelante la <b>Semana de Presupuesto y Derechos</b>, con el objetivo de abrir la discusión sobre el proyecto que el Poder Ejecutivo presenta cada año para ser debatido en el Congreso.</p>
+        <p>El presupuesto define cuántos recursos se destinan a garantizar derechos como la educación, la salud, la vivienda, el acceso a la justicia o la protección de la niñez. Durante la Semana compartimos análisis, datos y espacios de intercambio para que más personas y organizaciones puedan participar de esa discusión.</p>
+      </div>
+      <aside class="ediciones" aria-label="Ediciones de la Semana">
+        <h3>Ediciones</h3>
+        <div class="puntos" aria-hidden="true">
+          <i class="lleno"></i><i class="lleno"></i><i class="lleno"></i><i class="lleno"></i><i class="lleno"></i><i class="lleno"></i>
+          <i class="lleno"></i><i class="lleno"></i><i class="lleno"></i><i class="lleno"></i><i class="lleno"></i><i class="hoy"></i>
+        </div>
+        <div class="cifra"><strong>12</strong><span>ediciones acompañando<br>el debate presupuestario</span></div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PIE ============ -->
+<footer class="pie">
+  <div class="franja" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+  <div class="envoltura">
+    <div class="pie-grid">
+      <div>
+        <a class="logo" href="https://acij.org.ar/" aria-label="ACIJ">
+          <span class="letras" aria-hidden="true"><i>A</i><i>C</i><i>I</i><i>J</i></span>
+          <small>por la igualdad y la justicia</small>
+        </a>
+        <p style="margin-top:18px">Asociación Civil por la Igualdad y la Justicia. Programa de Justicia Fiscal.</p>
+      </div>
+      <div>
+        <h3>Contacto</h3>
+        <ul>
+          <li><a href="mailto:info@acij.org.ar">info@acij.org.ar</a></li>
+          <li><a href="https://www.google.com/maps/place/Carlos+Pellegrini+961,+C1009ABS+Cdad.+Aut%C3%B3noma+de+Buenos+Aires/@-34.5970835,-58.3838124,17z">Carlos Pellegrini 961, 4°, Buenos Aires</a></li>
+          <li><a href="https://acij.org.ar/category/programas/justicia-fiscal/">Programa de Justicia Fiscal</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Seguinos</h3>
+        <ul>
+          <li><a href="https://www.instagram.com/acij.arg/">Instagram</a></li>
+          <li><a href="https://twitter.com/acijargentina">X / Twitter</a></li>
+          <li><a href="https://www.facebook.com/ACIJ.ORG/">Facebook</a></li>
+          <li><a href="https://www.youtube.com/@CanalACIJ">YouTube</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="pie-fin">
+      <span>12° Semana de Presupuesto y Derechos · ACIJ</span>
+      <a href="https://acij.org.ar/">acij.org.ar</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* =====================================================================
+   CONTENIDOS EDITABLES
+   ---------------------------------------------------------------------
+   Todo lo que cambia durante la Semana se edita acá abajo.
+   No hace falta tocar el resto del archivo.
+
+   · Horarios en hora argentina, formato 'AAAA-MM-DDTHH:MM'. Si todavía no hay
+     horario, poné sólo la fecha ('AAAA-MM-DD') y aparece "Horario a confirmar".
+   · Los días no tienen que ser consecutivos: cada fecha distinta genera su pestaña.
+   · El estado (Próxima / En vivo / Finalizada) se calcula solo con la hora.
+   · Cuando una actividad termina, agregá sus materiales en "materiales".
+     Tipos de material: video, documento, presentacion, nota, fotos, enlace.
+     Los videos se muestran recién cuando la actividad terminó; antes, el link
+     de YouTube va en "transmision".
+   · Un campo vacío ('') no se muestra.
+   · "ejemplo: true" muestra una etiqueta EJEMPLO. Borrala al cargar datos reales.
+   ===================================================================== */
+
+const CONFIG = {
+  // Monitor Presupuestario 2027. Se inserta en la página y se usa para el botón
+  // "Abrir en pantalla completa". Dejar '' para ocultarlo y mostrar el gráfico ilustrativo.
+  monitorURL: 'https://monitor-2027.acij.org.ar/'
+};
+
+const DOCUMENTOS = [
+  {
+    tipo: 'Documento de análisis',
+    titulo: 'Análisis del Proyecto de Presupuesto Nacional 2027',
+    descripcion: 'Datos clave, prioridades de gasto e impacto de las principales partidas del proyecto.',
+    url: 'https://acij.org.ar/wp-content/uploads/2026/09/Analisis-Presupuesto-2027-ACIJ-2.pdf',
+    portada: 'https://acij.org.ar/wp-content/uploads/2026/09/Analisis-Presupuesto-2027-ACIJ-2-pdf.jpg',  // portada del PDF (miniatura generada por WordPress)
+    portadaTitulo: 'Proyecto de Presupuesto <b>2027</b>: análisis'
+  },
+  {
+    tipo: 'Informe',
+    titulo: 'Estimaciones macroeconómicas y modificaciones del gasto',
+    descripcion: 'El rol de las estimaciones macroeconómicas y las reasignaciones en la discrecionalidad del gasto. Aprendizajes de 2026 para el debate de 2027.',
+    url: 'https://acij.org.ar/wp-content/uploads/2026/09/Estimaciones-macroeconomicas-y-modificaciones-del-gasto-ACIJ-2026.docx.pdf',
+    portada: 'assets/portada-macro.jpg'
+  },
+  {
+    tipo: 'Informe',
+    titulo: 'Federalismo fiscal en el proyecto de Presupuesto 2027',
+    descripcion: 'Cómo se distribuyen los recursos entre Nación, provincias y municipios en el proyecto.',
+    url: '',                   // vacío = aparece como "Próximamente"
+    portada: 'assets/portada-federalismo.jpg'
+  }
+];
+
+const ACTIVIDADES = [
+  {
+    inicio: '2026-10-14T10:30',
+    tipo: 'Congreso',
+    titulo: 'Presupuesto 2027 e inversión en niñez, en la Comisión de Familias, Niñez y Juventudes',
+    descripcion: 'ACIJ y UNICEF presentaron ante la Comisión de Familias, Niñez y Juventudes de la Cámara de Diputados su análisis de la inversión en niñas, niños y adolescentes prevista en el Proyecto de Presupuesto 2027.',
+    organizan: '',
+    participantes: 'ACIJ y UNICEF Argentina',
+    lugar: 'Cámara de Diputados de la Nación',
+    inscripcion: '',
+    transmision: '',
+    publicacion: '',
+    agenda: [],
+    materiales: [
+      { tipo: 'video', titulo: 'Video de la reunión (Diputados)', url: 'https://www.youtube.com/watch?v=yBeRPbitVIE' },
+      { tipo: 'documento', titulo: 'Informe: Niñez y Presupuesto 2027 (PDF)', url: 'https://acij.org.ar/wp-content/uploads/2026/10/ACIJ-NINEZ-y-Presupuesto-2027.pdf' },
+      { tipo: 'nota', titulo: 'Nota: análisis de la inversión en niñez', url: 'https://acij.org.ar/presupuesto-2027-analisis-sobre-la-inversion-en-ninas-ninos-y-adolescentes/' }
+    ]
+  },
+  {
+    inicio: '2026-10-26T15:30', fin: '2026-10-26T17:30',
+    tipo: 'Jornada',
+    titulo: 'El presupuesto 2027 en clave de derechos sociales',
+    descripcion: 'Un intercambio sobre cómo el presupuesto afecta el ejercicio de derechos, con foco en su impacto en la educación y en los grupos vulnerabilizados.',
+    organizan: 'ACIJ, Centro de Estudios de Derecho Financiero y Derecho Tributario (CEDFDT) y Centro de Derechos Humanos (CDH), Facultad de Derecho, UBA',
+    participantes: '',
+    lugar: 'Salón Carlos Nino, Instituto Gioja · Facultad de Derecho (UBA), Av. Figueroa Alcorta 2263',
+    inscripcion: 'https://bit.ly/3VSRV64',
+    transmision: '',
+    publicacion: 'https://www.instagram.com/p/DesKuUhAY7C/',
+    agenda: [
+      { hora: '15:30 a 16:00', titulo: 'Panel de apertura: Política fiscal y derechos humanos',
+        personas: ['Eduardo Ferreyra (codirector de ACIJ)', 'Horacio Corti (director del CEDFDT, UBA)'] },
+      { hora: '16:00 a 16:40', titulo: 'Mesa 1. Financiamiento universitario: presupuesto y litigio',
+        personas: ['Javier Curcio (IIEP, FCE, UBA)', 'Pablo Manili (representante judicial del CIN)', 'Noelia Garone (Amnistía Internacional Argentina)'],
+        moderacion: 'Félix Samoilovich (ACIJ)' },
+      { hora: '16:40 a 17:20', titulo: 'Mesa 2. Presupuesto con enfoque de igualdad: género, discapacidad, infancias',
+        personas: ['Delfina Schenone (ELA) · Políticas de género', 'Agostina Quiroz (ACIJ) · Personas con discapacidad', 'Francisco Rodríguez (ACIJ/CDH) · Infancias y adolescencias'],
+        moderacion: 'Agatha Ciancaglini (CDH)' },
+      { hora: '17:20 a 17:30', titulo: 'Palabras de cierre',
+        personas: ['Alejandro Gaggero (coordinador de Justicia Fiscal de ACIJ)', 'Integrante del CEDFDT, UBA (a confirmar)'] }
+    ],
+    materiales: [
+      { tipo: 'video', titulo: 'Grabación completa en YouTube', url: 'https://www.youtube.com/watch?v=5FJVvJeDq20' }
+    ]
+  },
+  {
+    inicio: '2026-10-29T16:00', fin: '2026-10-29T18:00',
+    tipo: 'Webinario',
+    titulo: 'Secretos y acceso a la información pública: opacidad del gasto público estatal',
+    descripcion: 'Debatimos cómo la invocación de excepciones restringe el control ciudadano sobre fondos reservados, compras y exenciones fiscales, y qué estrategias jurídicas existen para exigir mayor transparencia.',
+    organizan: '',
+    participantes: '',
+    lugar: 'Virtual, por Zoom',
+    inscripcion: '',          // pegar acá el link de inscripción
+    transmision: 'https://www.youtube.com/watch?v=2OVDdOWMcBY',
+    publicacion: 'https://www.instagram.com/p/De1mNMPDU7m/',
+    agenda: [
+      { hora: '16:00 a 16:10', titulo: 'Palabras de apertura', personas: ['Eduardo Ferreyra (codirector de ACIJ)'] },
+      { hora: '16:10 a 16:25', titulo: '1. Secreto militar', detalle: 'La información clasificada por razones de defensa y el control de los gastos y compras militares.',
+        personas: ['Diego Sánchez (periodista)', 'Clara Lucarella (ACIJ)'] },
+      { hora: '16:25 a 16:40', titulo: '2. Secreto de inteligencia', detalle: 'Los fondos reservados y el gasto de los organismos de inteligencia.',
+        personas: ['Paula Litvachky (CELS)'] },
+      { hora: '16:40 a 16:55', titulo: '3. Secreto fiscal', detalle: 'Información sobre beneficios tributarios o incentivos fiscales, y sus beneficiarios.',
+        personas: ['Francisco Rodríguez Abinal (ACIJ)'] },
+      { hora: '16:55 a 17:10', titulo: '4. Secreto comercial', detalle: 'Gasto en publicidad de empresas con participación estatal.',
+        personas: ['Ezequiel Rowinski (Poder Ciudadano)'] },
+      { hora: '17:10 a 17:25', titulo: '5. Secreto en seguridad: protesta social', detalle: 'Los operativos antipiquetes y la Resolución 943/2023 del Ministerio de Seguridad.',
+        personas: ['Mariela Galeazzi (Amnistía Internacional Argentina)'] },
+      { hora: '17:25 a 17:40', titulo: '6. El rol de las agencias para garantizar el acceso a la información pública',
+        personas: ['Agencia de Acceso a la Información Pública'] },
+      { hora: '17:40 a 17:55', titulo: 'Preguntas e intercambio con el público' },
+      { hora: '17:55 a 18:00', titulo: 'Palabras de cierre', personas: ['Celeste Fernández (codirectora de ACIJ)'] }
+    ],
+    materiales: [
+      { tipo: 'video', titulo: 'Grabación completa en YouTube', url: 'https://www.youtube.com/watch?v=2OVDdOWMcBY' }
+    ]
+  },
+  {
+    inicio: '2026-11-03',     // sin horario todavía: poner '2026-11-03T10:00' cuando se confirme (y agregar fin)
+    tipo: 'Congreso',
+    titulo: 'Reunión de la Comisión de Mujeres y Diversidad de la Cámara de Diputados',
+    descripcion: 'Reunión de la Comisión Permanente de Mujeres y Diversidad de la Cámara de Diputados de la Nación. Se puede seguir en vivo por YouTube.',
+    organizan: '',
+    participantes: '',
+    lugar: 'Cámara de Diputados · en vivo por YouTube',
+    inscripcion: '',
+    transmision: '',          // pegar acá el link de YouTube de la transmisión
+    publicacion: '',
+    agenda: [],
+    materiales: []
+  },
+  {
+    inicio: '2026-11-12T15:00', fin: '2026-11-12T16:30',
+    tipo: 'Webinario',
+    titulo: '¿Cómo analizar el presupuesto público desde la sociedad civil? Introducción al Monitor Presupuestario',
+    descripcion: 'Herramientas prácticas y teóricas para que las organizaciones puedan hacer análisis presupuestarios actualizados, rigurosos y basados en datos oficiales. Presentamos el Monitor Presupuestario de ACIJ, que permite seguir todo el presupuesto nacional, y la herramienta de seguimiento del etiquetado de Niñez desarrollada con el apoyo de UNICEF, para analizar la inversión del Estado nacional en infancias y adolescencias.',
+    organizan: 'ELAC (Escuela Latinoamericana de Abogacía Comunitaria y Activismo Jurídico) y ACIJ, con el apoyo de UNICEF',
+    participantes: 'Natán Spollansky (economista del Programa de Justicia Distributiva, ACIJ) · Julia Frenkel (UNICEF) · Francisco Rodríguez (coordinador del Programa de Igualdad, ACIJ)',
+    lugar: 'Virtual, por Zoom',
+    inscripcion: '',          // pegar acá el link de inscripción
+    transmision: '',
+    publicacion: '',
+    agenda: [],
+    materiales: []
+  }
+];
+/* ===================== FIN DE CONTENIDOS EDITABLES ===================== */
+
+
+(function(){
+  const TZ = 'America/Argentina/Buenos_Aires';
+  const fecha = s => new Date(s.length === 10 ? s + 'T00:00:00-03:00' : s + ':00-03:00');
+  const sinHora = a => a.inicio.length === 10;
+  const clave = s => s.slice(0,10);
+  const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+  const fmt = (d, o) => new Intl.DateTimeFormat('es-AR', Object.assign({timeZone:TZ}, o)).format(d);
+  const hora = s => s.slice(11,16).replace(/:00$/, '') + ' h';
+  const ahora = new Date();
+
+  const ICONOS = {
+    video:'<svg viewBox="0 0 16 16" fill="currentColor"><path d="M4 2.5v11l9-5.5z"/></svg>',
+    documento:'<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 1.5h5l3 3v10H4z"/><path d="M6 8h4M6 11h4"/></svg>',
+    presentacion:'<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="1.5" y="2.5" width="13" height="8.5"/><path d="M8 11v3M5 14.5h6"/></svg>',
+    nota:'<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 3h12M2 6.5h12M2 10h8M2 13.5h6"/></svg>',
+    fotos:'<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="1.5" y="3" width="13" height="10"/><circle cx="8" cy="8" r="2.5"/></svg>',
+    enlace:'<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6.5 9.5l3-3M7 4.5l1.5-1.5a2.5 2.5 0 013.5 3.5L10.5 8M9 11.5L7.5 13A2.5 2.5 0 014 9.5L5.5 8"/></svg>'
+  };
+
+  const acts = ACTIVIDADES.slice().sort((a,b) => a.inicio.localeCompare(b.inicio));
+  const estado = a => {
+    if (sinHora(a)) return ahora < fecha(a.inicio + 'T23:59') ? 'proxima' : 'fin';
+    const i = fecha(a.inicio), f = fecha(a.fin || a.inicio);
+    return ahora < i ? 'proxima' : (ahora <= f ? 'vivo' : 'fin');
+  };
+
+
+  // ---------- Próxima actividad ----------
+  const vivo = acts.find(a => estado(a) === 'vivo');
+  const prox = vivo || acts.find(a => estado(a) === 'proxima');
+  const boxProx = document.getElementById('proxima');
+  if (prox) {
+    const d = fecha(prox.inicio);
+    boxProx.innerHTML = `<span class="etq">${vivo ? 'Ahora' : 'Próxima actividad'}</span>
+      <span>${esc(fmt(d,{weekday:'long', day:'numeric', month:'long'}))} · ${sinHora(prox) ? 'horario a confirmar' : hora(prox.inicio)}</span>
+      <a href="#${idAct(prox)}" data-ir="${clave(prox.inicio)}">${esc(prox.titulo)}</a>`;
+    boxProx.hidden = false;
+  }
+
+  // ---------- Pestañas de días ----------
+  const dias = [...new Set(acts.map(a => clave(a.inicio)))];
+  const hoy = fmt(ahora,{year:'numeric',month:'2-digit',day:'2-digit'}).split('/').reverse().join('-');
+  let sel = dias.includes(hoy) ? hoy : (prox ? clave(prox.inicio) : (dias[0] || 'todo'));
+  try { const g = sessionStorage.getItem('spyd-dia'); if (g && (dias.includes(g) || g==='todo')) sel = g; } catch(e){}
+
+  const tabs = document.getElementById('dias');
+  function pintarTabs(){
+    tabs.innerHTML = dias.map(k => {
+      const d = fecha(k + 'T12:00');
+      return `<button class="dia" role="tab" id="tab-${k}" aria-selected="${k===sel}" data-dia="${k}">
+        ${k===hoy ? '<span class="hoy-tag" title="Hoy"></span>' : ''}
+        <span class="dsem">${esc(fmt(d,{weekday:'short'}).replace('.',''))}</span>
+        <span class="dnum">${fmt(d,{day:'numeric'})}</span>
+        <span class="dmes">${esc(fmt(d,{month:'short'}).replace('.',''))}</span></button>`;
+    }).join('') + `<button class="dia todo" role="tab" aria-selected="${sel==='todo'}" data-dia="todo">
+        <span class="dsem">Todos los días</span><span class="dnum">Ver todo</span></button>`;
+  }
+  tabs.addEventListener('click', e => {
+    const b = e.target.closest('[data-dia]'); if (!b) return;
+    elegir(b.dataset.dia);
+  });
+  tabs.addEventListener('keydown', e => {
+    if (!['ArrowRight','ArrowLeft'].includes(e.key)) return;
+    const todos = [...dias,'todo'], i = todos.indexOf(sel);
+    const n = todos[(i + (e.key==='ArrowRight'?1:-1) + todos.length) % todos.length];
+    elegir(n); tabs.querySelector(`[data-dia="${n}"]`).focus();
+  });
+  boxProx.addEventListener('click', e => {
+    const a = e.target.closest('[data-ir]'); if (a && sel !== 'todo') elegir(a.dataset.ir);
+  });
+  function elegir(k){
+    sel = k; try { sessionStorage.setItem('spyd-dia', k); } catch(e){}
+    pintarTabs(); pintarLista();
+  }
+
+  // ---------- Tarjetas ----------
+  function idAct(a){ return 'act-' + a.inicio.replace(/[^0-9]/g,''); }
+  function gcal(a){
+    const z = s => fecha(s).toISOString().replace(/[-:]/g,'').replace(/\.\d{3}/,'');
+    const dia = s => s.replace(/-/g,''), sig = s => { const d = new Date(s + 'T12:00:00Z'); d.setUTCDate(d.getUTCDate()+1); return d.toISOString().slice(0,10).replace(/-/g,''); };
+    const p = new URLSearchParams({action:'TEMPLATE', text:a.titulo + ' · Semana de Presupuesto y Derechos',
+      dates: sinHora(a) ? dia(a.inicio) + '/' + sig(a.inicio) : z(a.inicio) + '/' + z(a.fin || a.inicio), details:(a.descripcion||'') + (a.transmision ? '\n' + a.transmision : ''), location:a.lugar||''});
+    return 'https://calendar.google.com/calendar/render?' + p.toString();
+  }
+  function tarjeta(a){
+    const e = estado(a);
+    const etq = {proxima:['proxima-e','Próxima'], vivo:['vivo','En vivo'], fin:['fin','Finalizada']}[e];
+    const mats = (a.materiales||[]).filter(m => m.url && (e === 'fin' || m.tipo !== 'video'));
+    let acciones = '';
+    if (e === 'vivo' && a.transmision) acciones += `<a class="boton" href="${esc(a.transmision)}" target="_blank" rel="noopener">Ver transmisión</a>`;
+    if (e === 'proxima' && a.transmision) acciones += `<a class="boton sec" href="${esc(a.transmision)}" target="_blank" rel="noopener">Transmisión en YouTube</a>`;
+    if (e !== 'fin' && a.inscripcion) acciones += `<a class="boton${e==='vivo'?' sec':''}" href="${esc(a.inscripcion)}" target="_blank" rel="noopener">Inscribirme</a>`;
+    if (e === 'proxima') acciones += `<a class="boton sec" href="${gcal(a)}" target="_blank" rel="noopener">Agendar</a>`;
+    if (a.publicacion) acciones += `<a class="boton sec" href="${esc(a.publicacion)}" target="_blank" rel="noopener">Ver flyer</a>`;
+    let materiales = '';
+    if (mats.length) {
+      materiales = `<div class="materiales"><h4>${e==='fin' ? 'Materiales' : 'Para leer antes'}</h4><ul class="mats">` +
+        mats.map(m => `<li><a class="mat" href="${esc(m.url)}" target="_blank" rel="noopener">
+          <span class="ic ${esc(m.tipo in ICONOS ? m.tipo : 'enlace')}">${ICONOS[m.tipo] || ICONOS.enlace}</span>${esc(m.titulo)}</a></li>`).join('') + '</ul></div>';
+    } else if (e === 'fin') {
+      materiales = `<div class="materiales"><p class="pendiente">Pronto vas a encontrar acá la grabación y los materiales de esta actividad.</p></div>`;
+    }
+    return `<article class="act ${e==='fin'?'fin':''} ${e==='vivo'?'vivo-c':''}" id="${idAct(a)}">
+      ${a.ejemplo ? '<span class="ejemplo">Ejemplo</span>' : ''}
+      <div class="act-hora"><div class="h">${sinHora(a) ? '<span class="a-conf">Horario</span><small>a confirmar</small>' : hora(a.inicio) + (a.fin ? `<small>a ${hora(a.fin)}</small>` : '')}</div>
+        <span class="estado ${etq[0]}">${etq[1]}</span></div>
+      <div class="act-cuerpo">
+        <div class="act-meta"><span class="tipo">${esc(a.tipo)}</span>${a.lugar ? `<span>${esc(a.lugar)}</span>` : ''}</div>
+        <h3>${esc(a.titulo)}</h3>
+        ${a.descripcion ? `<p>${esc(a.descripcion)}</p>` : ''}
+        ${a.participantes ? `<div class="panel"><b>Participan:</b> ${esc(a.participantes)}</div>` : ''}
+        ${a.organizan ? `<div class="panel"><b>Organizan:</b> ${esc(a.organizan)}</div>` : ''}
+        ${(a.agenda||[]).length ? `<details class="agenda"><summary>Ver programa completo</summary><ol>` +
+          a.agenda.map(x => `<li><span class="ag-hora">${esc(x.hora)}</span><div class="ag-txt"><b>${esc(x.titulo)}</b>
+            ${x.detalle ? `<span class="ag-det">${esc(x.detalle)}</span>` : ''}
+            ${(x.personas||[]).length ? `<span class="ag-per">${x.personas.map(esc).join('<br>')}</span>` : ''}
+            ${x.moderacion ? `<span class="ag-mod">Modera: ${esc(x.moderacion)}</span>` : ''}</div></li>`).join('') +
+          `</ol></details>` : ''}
+        ${acciones ? `<div class="acciones">${acciones}</div>` : ''}
+        ${materiales}
+      </div></article>`;
+  }
+  const lista = document.getElementById('lista');
+  function pintarLista(){
+    lista.setAttribute('aria-labelledby', sel==='todo' ? '' : 'tab-' + sel);
+    if (!acts.length) { lista.innerHTML = '<div class="vacio">Pronto publicaremos el programa.</div>'; return; }
+    const grupos = sel === 'todo' ? dias : [sel];
+    lista.innerHTML = grupos.map(k => {
+      const t = sel==='todo' ? `<div class="dia-titulo">${esc(fmt(fecha(k+'T12:00'),{weekday:'long', day:'numeric', month:'long'}))}</div>` : '';
+      return t + acts.filter(a => clave(a.inicio) === k).map(tarjeta).join('');
+    }).join('');
+  }
+  pintarTabs(); pintarLista();
+
+  // ---------- Documentos ----------
+  document.getElementById('docs').innerHTML = DOCUMENTOS.map(d => {
+    const listo = !!d.url;
+    const dibujada = `<div class="portada css" aria-hidden="true">
+          <div class="fila"><i></i><i class="f"></i><i></i><i></i><i class="f"></i><i></i></div>
+          <div class="pt">${d.portadaTitulo || esc(d.titulo)}</div>
+          <img class="trama" src="assets/trama-bordo.png" alt="">
+          <span class="mini-logo logo"><span class="letras"><i>A</i><i>C</i><i>I</i><i>J</i></span></span>
+        </div>`;
+    // Si la imagen de portada no carga, se reemplaza por la portada dibujada.
+    const portada = d.portada
+      ? `<div class="portada"><img src="${esc(d.portada)}" alt="Portada: ${esc(d.titulo)}" loading="lazy"
+           onerror="const t=this.parentNode.querySelector('template'); this.parentNode.outerHTML=t.innerHTML">${listo ? '' : '<span class="sello">Próximamente</span>'}<template>${dibujada}</template></div>`
+      : dibujada;
+    return `<article class="doc ${listo ? '' : 'pronto'}">
+      ${listo ? `<a class="portada-link" href="${esc(d.url)}" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">${portada}</a>` : portada}
+      <div><div class="tipo-doc">${esc(d.tipo)}</div><h3>${esc(d.titulo)}</h3></div>
+      <p>${esc(d.descripcion)}</p>
+      <div class="acciones">${listo
+        ? `<a class="boton" href="${esc(d.url)}" target="_blank" rel="noopener">Descargar PDF <span class="flecha" aria-hidden="true">↓</span></a>`
+        : '<span class="boton sec" aria-disabled="true" style="cursor:default;opacity:.6">Próximamente</span>'}</div>
+    </article>`;
+  }).join('');
+
+  // ---------- Herramienta ----------
+  if (CONFIG.monitorURL) {
+    const u = esc(CONFIG.monitorURL);
+    document.getElementById('herramienta').classList.add('con-embed');
+    document.getElementById('embed-herramienta').innerHTML =
+      `<div class="embed-barra"><span>Monitor Presupuestario · Proyecto 2027</span>
+        <a href="${u}" target="_blank" rel="noopener">Abrir en pantalla completa ↗</a></div>
+       <iframe src="${u}" title="Monitor Presupuestario: Proyecto de Presupuesto 2027" loading="lazy"></iframe>`;
+  }
+})();
+</script>
+
+</body>
+</html>
